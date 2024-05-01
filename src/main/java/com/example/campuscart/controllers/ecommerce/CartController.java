@@ -51,7 +51,7 @@ public class CartController {
         try{
             Cart response = cartService.increaseCartItemQuantity(cartId, cartItemId);
             return ResponseEntity.status(HttpStatus.OK).body(response);
-        } catch (NotFoundException notFoundException) {
+        } catch (NotFoundException notFoundException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(notFoundException.getMessage());
         } catch (OutOfStockException outOfStockException){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(outOfStockException.getMessage());
