@@ -1,5 +1,6 @@
 package com.example.campuscart.repositories.ecommerce;
 
+import com.example.campuscart.constants.Constants;
 import com.example.campuscart.entities.ecommerce.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    @Query("SELECT ct FROM CartItem ct WHERE ct.cart.id = :cartId AND ct.product.id = :productId")
+    @Query(Constants.QueryConstants.FETCH_CARTITEM_BY_CART_AND_PRODUCT)
     public Optional<CartItem> fetchCartItemByCartAndProduct(@Param("cartId") Long cartId, @Param("productId") Long productId);
 }

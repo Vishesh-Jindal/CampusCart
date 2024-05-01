@@ -1,5 +1,6 @@
 package com.example.campuscart.repositories.ecommerce;
 
+import com.example.campuscart.constants.Constants;
 import com.example.campuscart.entities.ecommerce.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-    @Query("SELECT c FROM Cart c WHERE c.user.accountId = :accountId")
+    @Query(Constants.QueryConstants.FETCH_CART_BY_ACCOUNT_ID)
     public Optional<Cart> findCartByAccountId(@Param("accountId") Long accountId);
 }
