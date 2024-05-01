@@ -25,6 +25,7 @@ public class ProductController {
     @PostMapping("/product/add/{accountId}")
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> addProduct(@PathVariable("accountId") Long accountId, @RequestBody @Valid ProductRequest request, BindingResult bindingResult){
+        log.info("Request Received to Add Product by Seller: " + accountId);
         if(bindingResult.hasFieldErrors()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError());
         }
@@ -55,6 +56,7 @@ public class ProductController {
     @PutMapping("/product/{productId}")
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<?> editProduct(@PathVariable("productId") Long productId, @RequestBody @Valid ProductRequest request, BindingResult bindingResult){
+        log.info("Request Received to edit product: " + productId);
         if(bindingResult.hasFieldErrors()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getFieldError());
         }
@@ -70,6 +72,7 @@ public class ProductController {
     }
     @GetMapping("/public/product/serviceable/{categoryId}")
     public ResponseEntity<?> fetchCategoryProducts(@PathVariable("categoryId") Long categoryId){
+        log.info("Request Received to fetch Products from category: " + categoryId);
         try{
             AllCategoryProductsResponse response = productService.fetchServiceableCategoryProducts(categoryId);
             return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -82,6 +85,7 @@ public class ProductController {
     }
     @GetMapping("/public/product/{productId}")
     public ResponseEntity<?> fetchProduct(@PathVariable("productId") Long productId){
+        log.info("Request Received to fetch Product: " + productId);
         try{
             Product response = productService.fetchProduct(productId);
             return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -95,6 +99,7 @@ public class ProductController {
     @GetMapping("/product/all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> fetchAllProducts(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size){
+        log.info("Request Received to fetch all products");
         try{
             Page<Product> response = productService.fetchAllProducts(page, size);
             return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -106,6 +111,7 @@ public class ProductController {
     @PatchMapping("/product/{productId}/approve")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> approveProduct(@PathVariable("productId") Long productId){
+        log.info("Request Received to approve product: " + productId);
         try{
             Product response = productService.approveProduct(productId);
             return ResponseEntity.status(HttpStatus.OK).body(response);
