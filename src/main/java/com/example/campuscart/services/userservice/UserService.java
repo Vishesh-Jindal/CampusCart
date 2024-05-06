@@ -89,11 +89,7 @@ public class UserService {
         userRepository.save(user);
     }
     public void deleteUser(Long accountId) throws NotFoundException {
-        Optional<User> optionalUser = userRepository.findById(accountId);
-        if(!optionalUser.isPresent()){
-            throw new NotFoundException("User: "+accountId+" not found");
-        }
-        User user = optionalUser.get();
+        User user = this.getUser(accountId);
         userRepository.delete(user);
     }
     public Page<User> getAllUsers(Integer page, Integer size) {
